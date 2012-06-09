@@ -6,4 +6,6 @@
 //  Copyright (c) 2012年 ZUST. All rights reserved.
 //
 
+#import "ZJTStatusBarAlertWindow.h"
+
 #define DID_GET_TOKEN_IN_WEB_VIEW @"didGetTokenInWebView"

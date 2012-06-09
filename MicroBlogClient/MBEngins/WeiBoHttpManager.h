@@ -10,6 +10,8 @@
 #import "ASIHTTPRequestDelegate.h"
 #import "StringUtil.h"
 #import "NSStringAdditions.h"
+#import "ZJTStatusBarAlertWindow.h"
+#import "ZJTGloble.h"
 
 #define SINA_V2_DOMAIN              @"https://api.weibo.com/2"
 #define SINA_API_AUTHORIZE          @"https://api.weibo.com/oauth2/authorize"

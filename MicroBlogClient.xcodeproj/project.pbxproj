@@ -111,6 +111,10 @@
 		AB9A640A15836C670041EEE9 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9A63C015836C660041EEE9 /* SHKActivityIndicator.m */; };
 		AB9A640B15836C670041EEE9 /* ZJTHelpler.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9A63C415836C660041EEE9 /* ZJTHelpler.m */; };
 		AB9A640C15836C670041EEE9 /* ZJTStatusBarAlertWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9A63C615836C660041EEE9 /* ZJTStatusBarAlertWindow.m */; };
+		AB9A640F15836C9C0041EEE9 /* HHNetDataCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9A640E15836C9C0041EEE9 /* HHNetDataCacheManager.m */; };
+		AB9A641415836D670041EEE9 /* UIDevice+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9A641115836D670041EEE9 /* UIDevice+Orientation.m */; };
+		AB9A641515836D670041EEE9 /* UILabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9A641315836D670041EEE9 /* UILabel+Size.m */; };
+		AB9A641715836D7E0041EEE9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9A641615836D7E0041EEE9 /* QuartzCore.framework */; };
 		ABACD5F415833ED5009E7AD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABACD5F315833ED5009E7AD2 /* UIKit.framework */; };
 		ABACD5F615833ED5009E7AD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABACD5F515833ED5009E7AD2 /* Foundation.framework */; };
 		ABACD5F815833ED5009E7AD2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABACD5F715833ED5009E7AD2 /* CoreGraphics.framework */; };
@@ -282,6 +286,13 @@
 		AB9A63C415836C660041EEE9 /* ZJTHelpler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJTHelpler.m; sourceTree = "<group>"; };
 		AB9A63C515836C660041EEE9 /* ZJTStatusBarAlertWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJTStatusBarAlertWindow.h; sourceTree = "<group>"; };
 		AB9A63C615836C660041EEE9 /* ZJTStatusBarAlertWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJTStatusBarAlertWindow.m; sourceTree = "<group>"; };
+		AB9A640D15836C9C0041EEE9 /* HHNetDataCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHNetDataCacheManager.h; sourceTree = "<group>"; };
+		AB9A640E15836C9C0041EEE9 /* HHNetDataCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHNetDataCacheManager.m; sourceTree = "<group>"; };
+		AB9A641015836D670041EEE9 /* UIDevice+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Orientation.h"; sourceTree = "<group>"; };
+		AB9A641115836D670041EEE9 /* UIDevice+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Orientation.m"; sourceTree = "<group>"; };
+		AB9A641215836D670041EEE9 /* UILabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Size.h"; sourceTree = "<group>"; };
+		AB9A641315836D670041EEE9 /* UILabel+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Size.m"; sourceTree = "<group>"; };
+		AB9A641615836D7E0041EEE9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ABACD5EF15833ED5009E7AD2 /* MicroBlogClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroBlogClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABACD5F315833ED5009E7AD2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ABACD5F515833ED5009E7AD2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -302,6 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9A641715836D7E0041EEE9 /* QuartzCore.framework in Frameworks */,
 				AB9A635C15836C110041EEE9 /* ImageIO.framework in Frameworks */,
 				AB60ACD315834BC900B33F4A /* libsqlite3.dylib in Frameworks */,
 				AB60ACD115834BC100B33F4A /* libicucore.dylib in Frameworks */,
@@ -323,6 +335,8 @@
 		AB60AC68158349E100B33F4A /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
+				AB9A640D15836C9C0041EEE9 /* HHNetDataCacheManager.h */,
+				AB9A640E15836C9C0041EEE9 /* HHNetDataCacheManager.m */,
 				AB60AC6A15834A2A00B33F4A /* SBJson */,
 				AB60AC7615834A2A00B33F4A /* Reachability */,
 				AB60AC7915834A2A00B33F4A /* ASIHttpRequest */,
@@ -404,6 +418,10 @@
 		AB60ACAC15834AD500B33F4A /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				AB9A641015836D670041EEE9 /* UIDevice+Orientation.h */,
+				AB9A641115836D670041EEE9 /* UIDevice+Orientation.m */,
+				AB9A641215836D670041EEE9 /* UILabel+Size.h */,
+				AB9A641315836D670041EEE9 /* UILabel+Size.m */,
 				AB60ACBD15834B5700B33F4A /* StringUtil.m */,
 				AB60ACBE15834B5700B33F4A /* StringUtil.h */,
 				AB60ACAD15834AE300B33F4A /* NSStringAdditions.m */,
@@ -612,6 +630,7 @@
 		ABACD5F215833ED5009E7AD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB9A641615836D7E0041EEE9 /* QuartzCore.framework */,
 				AB9A635B15836C110041EEE9 /* ImageIO.framework */,
 				AB60ACD215834BC900B33F4A /* libsqlite3.dylib */,
 				AB60ACD015834BC100B33F4A /* libicucore.dylib */,
@@ -821,6 +840,9 @@
 				AB9A640A15836C670041EEE9 /* SHKActivityIndicator.m in Sources */,
 				AB9A640B15836C670041EEE9 /* ZJTHelpler.m in Sources */,
 				AB9A640C15836C670041EEE9 /* ZJTStatusBarAlertWindow.m in Sources */,
+				AB9A640F15836C9C0041EEE9 /* HHNetDataCacheManager.m in Sources */,
+				AB9A641415836D670041EEE9 /* UIDevice+Orientation.m in Sources */,
+				AB9A641515836D670041EEE9 /* UILabel+Size.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
