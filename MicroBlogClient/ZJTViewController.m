@@ -7,6 +7,9 @@
 //
 
 #import "ZJTViewController.h"
+#import "OAuthWebView.h"
+#import "WeiBoMessageManager.h"
+#import "ZJTHomeViewController.h"
 
 @interface ZJTViewController ()
 
@@ -17,18 +20,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+- (IBAction)loginBtnClicked:(id)sender {
+    OAuthWebView *o = [[OAuthWebView alloc] initWithNibName:@"OAuthWebView" bundle:nil];
+    [self presentModalViewController:o animated:YES];
+    [o release];
+}
+- (IBAction)userInfo:(id)sender {
+    WeiBoMessageManager *m = [WeiBoMessageManager getInstance];
+    [m getUserID];
+}
+- (IBAction)home:(id)sender {
+    ZJTHomeViewController *h = [[ZJTHomeViewController alloc] init];
+    [self.navigationController pushViewController:h animated:YES];
+    [h release];
 }
 
 @end
