@@ -85,4 +85,43 @@ static ZJTHelpler *instance = nil;
     return height;
 }
 
++ (NSURL*)generateURL:(NSString*)baseURL params:(NSDictionary*)params {
+	if (params) {
+		NSMutableArray* pairs = [NSMutableArray array];
+		for (NSString* key in params.keyEnumerator) {
+			NSString* value = [params objectForKey:key];
+			NSString* escaped_value = (NSString *)CFURLCreateStringByAddingPercentEscapes(
+																						  NULL, /* allocator */
+																						  (CFStringRef)value,
+																						  NULL, /* charactersToLeaveUnescaped */
+																						  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+																						  kCFStringEncodingUTF8);
+            
+            [pairs addObject:[NSString stringWithFormat:@"%@=%@", key, value]];
+			[escaped_value release];
+		}
+		
+		NSString* query = [pairs componentsJoinedByString:@"&"];
+		NSString* url = [NSString stringWithFormat:@"%@?%@", baseURL, query];
+		return [NSURL URLWithString:url];
+	} else {
+		return [NSURL URLWithString:baseURL];
+	}
+}
+
++ (NSString *) getStringFromUrl: (NSString*) url needle:(NSString *) needle 
+{
+	NSString * str = nil;
+	NSRange start = [url rangeOfString:needle];
+	if (start.location != NSNotFound) {
+		NSRange end = [[url substringFromIndex:start.location+start.length] rangeOfString:@"&"];
+		NSUInteger offset = start.location+start.length;
+		str = end.location == NSNotFound
+		? [url substringFromIndex:offset]
+		: [url substringWithRange:NSMakeRange(offset, end.location)];
+		str = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	}
+	return str;
+}
+
 @end

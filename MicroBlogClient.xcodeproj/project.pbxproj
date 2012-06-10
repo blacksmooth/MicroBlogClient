@@ -40,6 +40,9 @@
 		AB60ACCF15834BB900B33F4A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB60ACCE15834BB900B33F4A /* libz.dylib */; };
 		AB60ACD115834BC100B33F4A /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB60ACD015834BC100B33F4A /* libicucore.dylib */; };
 		AB60ACD315834BC900B33F4A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB60ACD215834BC900B33F4A /* libsqlite3.dylib */; };
+		AB8623961584692C0037F0CB /* ZJTTencentHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8623951584692C0037F0CB /* ZJTTencentHttpManager.m */; };
+		AB86239D1584717E0037F0CB /* ZJTTencentMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB86239C1584717E0037F0CB /* ZJTTencentMessageManager.m */; };
+		AB86239F1584799D0037F0CB /* IPAdress.c in Sources */ = {isa = PBXBuildFile; fileRef = AB86239E1584799D0037F0CB /* IPAdress.c */; };
 		AB9A635C15836C110041EEE9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9A635B15836C110041EEE9 /* ImageIO.framework */; };
 		AB9A63C715836C660041EEE9 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AB9A636015836C660041EEE9 /* blueArrow.png */; };
 		AB9A63C815836C670041EEE9 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB9A636115836C660041EEE9 /* blueArrow@2x.png */; };
@@ -189,6 +192,12 @@
 		AB60ACCE15834BB900B33F4A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AB60ACD015834BC100B33F4A /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		AB60ACD215834BC900B33F4A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AB8623941584692C0037F0CB /* ZJTTencentHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJTTencentHttpManager.h; sourceTree = "<group>"; };
+		AB8623951584692C0037F0CB /* ZJTTencentHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJTTencentHttpManager.m; sourceTree = "<group>"; };
+		AB86239A15846BFC0037F0CB /* IPAdress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAdress.h; sourceTree = "<group>"; };
+		AB86239B1584717E0037F0CB /* ZJTTencentMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJTTencentMessageManager.h; sourceTree = "<group>"; };
+		AB86239C1584717E0037F0CB /* ZJTTencentMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJTTencentMessageManager.m; sourceTree = "<group>"; };
+		AB86239E1584799D0037F0CB /* IPAdress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IPAdress.c; sourceTree = "<group>"; };
 		AB9A635B15836C110041EEE9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		AB9A636015836C660041EEE9 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		AB9A636115836C660041EEE9 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
@@ -437,12 +446,32 @@
 		AB60ACB615834B1300B33F4A /* MBEngins */ = {
 			isa = PBXGroup;
 			children = (
-				AB60ACB715834B3200B33F4A /* WeiBoMessageManager.m */,
-				AB60ACB815834B3200B33F4A /* WeiBoMessageManager.h */,
-				AB60ACB915834B3200B33F4A /* WeiBoHttpManager.m */,
-				AB60ACBA15834B3200B33F4A /* WeiBoHttpManager.h */,
+				AB862398158469910037F0CB /* Sina */,
+				AB862397158469880037F0CB /* Tencent */,
 			);
 			path = MBEngins;
+			sourceTree = "<group>";
+		};
+		AB862397158469880037F0CB /* Tencent */ = {
+			isa = PBXGroup;
+			children = (
+				AB8623941584692C0037F0CB /* ZJTTencentHttpManager.h */,
+				AB8623951584692C0037F0CB /* ZJTTencentHttpManager.m */,
+				AB86239B1584717E0037F0CB /* ZJTTencentMessageManager.h */,
+				AB86239C1584717E0037F0CB /* ZJTTencentMessageManager.m */,
+			);
+			name = Tencent;
+			sourceTree = "<group>";
+		};
+		AB862398158469910037F0CB /* Sina */ = {
+			isa = PBXGroup;
+			children = (
+				AB60ACBA15834B3200B33F4A /* WeiBoHttpManager.h */,
+				AB60ACB915834B3200B33F4A /* WeiBoHttpManager.m */,
+				AB60ACB815834B3200B33F4A /* WeiBoMessageManager.h */,
+				AB60ACB715834B3200B33F4A /* WeiBoMessageManager.m */,
+			);
+			name = Sina;
 			sourceTree = "<group>";
 		};
 		AB9A635E15836C660041EEE9 /* Resources */ = {
@@ -598,6 +627,8 @@
 		AB9A63BE15836C660041EEE9 /* ZJTTools */ = {
 			isa = PBXGroup;
 			children = (
+				AB86239A15846BFC0037F0CB /* IPAdress.h */,
+				AB86239E1584799D0037F0CB /* IPAdress.c */,
 				AB9A63BF15836C660041EEE9 /* SHKActivityIndicator.h */,
 				AB9A63C015836C660041EEE9 /* SHKActivityIndicator.m */,
 				AB9A63C115836C660041EEE9 /* SHKDefine.h */,
@@ -843,6 +874,9 @@
 				AB9A640F15836C9C0041EEE9 /* HHNetDataCacheManager.m in Sources */,
 				AB9A641415836D670041EEE9 /* UIDevice+Orientation.m in Sources */,
 				AB9A641515836D670041EEE9 /* UILabel+Size.m in Sources */,
+				AB8623961584692C0037F0CB /* ZJTTencentHttpManager.m in Sources */,
+				AB86239D1584717E0037F0CB /* ZJTTencentMessageManager.m in Sources */,
+				AB86239F1584799D0037F0CB /* IPAdress.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

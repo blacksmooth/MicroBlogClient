@@ -9,3 +9,8 @@
 #import "ZJTStatusBarAlertWindow.h"
 
 #define DID_GET_TOKEN_IN_WEB_VIEW @"didGetTokenInWebView"
+
+typedef enum {
+    kTencentMicroBlog = 0,
+    kSinaMicroBlog
+}MicroBlogType;

@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "User.h"
+
 @class ZJTHelpler;
+
 #define kTextViewPadding            16.0
 #define kLineBreakMode              UILineBreakModeWordWrap
 
@@ -33,5 +35,8 @@
 
 +(CGFloat)getTextViewHeight:(NSString*)contentText with:(CGFloat)with sizeOfFont:(CGFloat)fontSize addtion:(CGFloat)add;
 
++ (NSURL*)generateURL:(NSString*)baseURL params:(NSDictionary*)params;
+
++ (NSString *) getStringFromUrl: (NSString*) url needle:(NSString *) needle ;
 
 @end

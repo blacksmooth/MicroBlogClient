@@ -7,12 +7,15 @@
 //
 
 #import "OAuthWebView.h"
-#import "WeiBoHttpManager.h"
+#import "WeiBoMessageManager.h"
 #import "SHKActivityIndicator.h"
 #import "ZJTStatusBarAlertWindow.h"
+#import "ZJTTencentMessageManager.h"
+#import "ZJTHelpler.h"
 
 @implementation OAuthWebView
 @synthesize webV;
+@synthesize MBType = _MBType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,60 +26,62 @@
     return self;
 }
 
-
-- (NSString *) getStringFromUrl: (NSString*) url needle:(NSString *) needle {
-	NSString * str = nil;
-	NSRange start = [url rangeOfString:needle];
-	if (start.location != NSNotFound) {
-		NSRange end = [[url substringFromIndex:start.location+start.length] rangeOfString:@"&"];
-		NSUInteger offset = start.location+start.length;
-		str = end.location == NSNotFound
-		? [url substringFromIndex:offset]
-		: [url substringWithRange:NSMakeRange(offset, end.location)];
-		str = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	}
-	return str;
+-(id)initWithType:(MicroBlogType)mbType
+{
+    self = [self initWithNibName:@"OAuthWebView" bundle:nil];
+    if (self) {
+        self.MBType = mbType;
+    }
+    return self;
 }
 
 //剥离出url中的access_token的值
 - (void) dialogDidSucceed:(NSURL*)url {
     NSString *q = [url absoluteString];
-    token = [self getStringFromUrl:q needle:@"access_token="];
+    token = [ZJTHelpler getStringFromUrl:q needle:@"access_token="];
     
     //用户点取消 error_code=21330
-    NSString *errorCode = [self getStringFromUrl:q needle:@"error_code="];
+    NSString *errorCode = [ZJTHelpler getStringFromUrl:q needle:@"error_code="];
     if (errorCode != nil && [errorCode isEqualToString: @"21330"]) {
         NSLog(@"Oauth canceled");
     }
     
-    NSString *refreshToken  = [self getStringFromUrl:q needle:@"refresh_token="];
-    NSString *expTime       = [self getStringFromUrl:q needle:@"expires_in="];
-    NSString *uid           = [self getStringFromUrl:q needle:@"uid="];
-    NSString *remindIn      = [self getStringFromUrl:q needle:@"remind_in="];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:USER_STORE_ACCESS_TOKEN];
-    [[NSUserDefaults standardUserDefaults] setObject:uid forKey:USER_STORE_USER_ID];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
+    NSString *refreshToken  = [ZJTHelpler getStringFromUrl:q needle:@"refresh_token="];
+    NSString *expTime       = [ZJTHelpler getStringFromUrl:q needle:@"expires_in="];
+    NSString *uid           = [ZJTHelpler getStringFromUrl:q needle:@"uid="];
+    NSString *remindIn      = [ZJTHelpler getStringFromUrl:q needle:@"remind_in="];
     
     NSDate *expirationDate =nil;
     NSLog(@"jtone \n\ntoken=%@\nrefreshToken=%@\nexpTime=%@\nuid=%@\nremindIn=%@\n\n",token,refreshToken,expTime,uid,remindIn);
     if (expTime != nil) {
-        int expVal = [expTime intValue]-3600;
+        int expVal = [expTime intValue] - 3600;
         if (expVal == 0) 
         {
             
         } else {
             expirationDate = [NSDate dateWithTimeIntervalSinceNow:expVal];
-            [[NSUserDefaults standardUserDefaults]setObject:expirationDate forKey:USER_STORE_EXPIRATION_DATE];
-            [[NSUserDefaults standardUserDefaults] synchronize];
 			NSLog(@"jtone time = %@",expirationDate);
         } 
     } 
+    
+    if (_MBType == kSinaMicroBlog) {
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:USER_STORE_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] setObject:uid forKey:USER_STORE_USER_ID];
+        [[NSUserDefaults standardUserDefaults] setObject:expirationDate forKey:USER_STORE_EXPIRATION_DATE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    else if (_MBType == kTencentMicroBlog) {
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:TENCENT_STORE_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] setObject:uid forKey:TENCENT_STORE_USER_ID];
+        [[NSUserDefaults standardUserDefaults] setObject:expirationDate forKey:TENCENT_STORE_EXPIRATION_DATE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     if (token) {
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:DID_GET_TOKEN_IN_WEB_VIEW object:nil];
         [self.navigationController popViewControllerAnimated:YES];
+        [self dismissModalViewControllerAnimated:YES];
     }
 }
 
@@ -88,19 +93,33 @@
     
     self.title = @"登陆";
     self.navigationItem.hidesBackButton = YES;
-    
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_STORE_ACCESS_TOKEN];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_STORE_USER_ID];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_STORE_EXPIRATION_DATE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     webV.delegate = self;
-    WeiBoHttpManager *weiboHttpManager = [[WeiBoHttpManager alloc]initWithDelegate:self];
-    NSURL *url = [weiboHttpManager getOauthCodeUrl];
+    NSURL *url = nil;
+    
+    if (_MBType == kSinaMicroBlog) 
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_STORE_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_STORE_USER_ID];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_STORE_EXPIRATION_DATE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        WeiBoHttpManager *weiboHttpManager = [WeiBoMessageManager getInstance].httpManager;
+        url = [weiboHttpManager getOauthCodeUrl];
+    }
+    else if(_MBType == kTencentMicroBlog)
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_STORE_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_STORE_USER_ID];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_STORE_EXPIRATION_DATE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        ZJTTencentHttpManager *tencentHttpManager = [ZJTTencentMessageManager getInstance].httpManager;
+        url = [tencentHttpManager getTencentOauthCodeUrl];
+    }
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url];
 	[webV loadRequest:request];
     [request release];
-    [weiboHttpManager release];
 }
 
 - (void)viewDidUnload
@@ -122,17 +141,17 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
 	//这里是几个重定向，将每个重定向的网址遍历，如果遇到＃号，则重定向到自己申请时候填写的网址，后面会附上access_token的值
-    UIApplication *app = [UIApplication sharedApplication];
-    UIWindow *window = nil;
-    for (UIWindow *win in app.windows) {
-        if (win.tag == 1) {
-            window = win;
-            window.windowLevel = UIWindowLevelNormal;
-        }
-        if (win.tag == 0) {
-            [win makeKeyAndVisible];
-        }
-    }
+//    UIApplication *app = [UIApplication sharedApplication];
+//    UIWindow *window = nil;
+//    for (UIWindow *win in app.windows) {
+//        if (win.tag == 1) {
+//            window = win;
+//            window.windowLevel = UIWindowLevelNormal;
+//        }
+//        if (win.tag == 0) {
+//            [win makeKeyAndVisible];
+//        }
+//    }
     
 	NSURL *url = [request URL];
     NSLog(@"webview's url = %@",url);

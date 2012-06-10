@@ -32,7 +32,7 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 - (IBAction)loginBtnClicked:(id)sender {
-    OAuthWebView *o = [[OAuthWebView alloc] initWithNibName:@"OAuthWebView" bundle:nil];
+    OAuthWebView *o = [[OAuthWebView alloc]initWithType:kTencentMicroBlog];;
     [self presentModalViewController:o animated:YES];
     [o release];
 }

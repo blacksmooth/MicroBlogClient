@@ -40,7 +40,7 @@
     if (authToken == nil || [manager isNeedToRefreshTheToken]) 
     {
         shouldLoad = YES;
-        OAuthWebView *webV = [[OAuthWebView alloc]initWithNibName:@"OAuthWebView" bundle:nil];
+        OAuthWebView *webV = [[OAuthWebView alloc]initWithType:kTencentMicroBlog];
         [self presentModalViewController:webV animated:NO];
         [webV release];
     }
@@ -93,7 +93,7 @@
 -(void)relogin
 {
     shouldLoad = YES;
-    OAuthWebView *webV = [[OAuthWebView alloc]initWithNibName:@"OAuthWebView" bundle:nil];
+    OAuthWebView *webV = [[OAuthWebView alloc]initWithType:kTencentMicroBlog];;
     [self presentModalViewController:webV animated:NO];
     [webV release];
 }
@@ -125,7 +125,7 @@
             {
                 [[SHKActivityIndicator currentIndicator] hide];
                 shouldLoad = YES;
-                OAuthWebView *webV = [[OAuthWebView alloc]initWithNibName:@"OAuthWebView" bundle:nil];
+                OAuthWebView *webV = [[OAuthWebView alloc]initWithType:kTencentMicroBlog];;
                 [self presentModalViewController:webV animated:NO];
                 [webV release];
             }

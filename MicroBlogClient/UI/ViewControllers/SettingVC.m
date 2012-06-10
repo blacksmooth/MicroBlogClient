@@ -157,7 +157,7 @@ enum {
 
 -(void)logout
 {
-    OAuthWebView *webV = [[OAuthWebView alloc]initWithNibName:@"OAuthWebView" bundle:nil];
+    OAuthWebView *webV = [[OAuthWebView alloc]initWithType:kTencentMicroBlog];;
     webV.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:webV animated:YES];
     [webV release];
