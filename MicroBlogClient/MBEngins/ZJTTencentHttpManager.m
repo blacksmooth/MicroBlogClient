@@ -20,6 +20,7 @@
 @synthesize authCode;
 @synthesize authToken;
 @synthesize userId;
+@synthesize openID;
 
 -(void)dealloc
 {
@@ -27,6 +28,7 @@
     self.authToken = nil;
     self.authCode = nil;
     self.requestQueue = nil;
+    self.openID = nil;
     [super dealloc];
 }
 
@@ -59,6 +61,13 @@
     [dict setObject:[NSNumber numberWithInt:requestType] forKey:TENCENT_REQUEST_TYPE];
     [request setUserInfo:dict];
     [dict release];
+}
+
+-(void)setTencentGetParams:(NSMutableDictionary*)dic
+{
+    [dic setObject:TENCENT_APP_KEY forKey:@"oauth_consumer_key"];
+    [dic setObject:self.authToken forKey:@"access_token"];
+//    [dic setObject:self.authToken forKey:@"openid"];
 }
 
 #pragma mark - Operate queue
@@ -102,6 +111,24 @@
 	NSURL *url = [ZJTHelpler generateURL:TENCENT_API_AUTHORIZE params:params];
 	NSLog(@"url= %@",url);
     return url;
+}
+
+//获取登陆用户的info
+-(void)getTencentSelfInfo
+{
+    //http://open.t.qq.com/api/user/info
+    self.authToken = [[NSUserDefaults standardUserDefaults] objectForKey:TENCENT_STORE_ACCESS_TOKEN];
+    NSMutableDictionary     *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       authToken,   @"access_token",
+                                       nil];
+    NSString    *baseUrl = @"http://open.t.qq.com/api/user/info";
+    NSURL       *url = [ZJTHelpler generateURL:baseUrl params:params];
+    
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:url];
+    NSLog(@"url=%@",url);
+    [self setGetUserInfo:request withRequestType:TencentGetSelfInfo];
+    [requestQueue addOperation:request];
+    [request release];
 }
 
 @end

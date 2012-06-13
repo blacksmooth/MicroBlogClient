@@ -13,8 +13,8 @@
 #import "ZJTStatusBarAlertWindow.h"
 #import "ZJTGloble.h"
 
-#ifndef __SOMEFILE_H__
-#define __SOMEFILE_H__
+#ifndef __IPAdress_H__
+#define __IPAdress_H__
     #include "IPAdress.h"
 #endif
 
@@ -28,6 +28,7 @@
 #define TENCENT_REQUEST_TYPE           @"tencentRequestType"
 
 #define TENCENT_STORE_ACCESS_TOKEN     @"tencentAccessToken"
+#define TENCENT_SOTRE_OPEN_ID          @"TENCENT_SOTRE_OPEN_ID"
 #define TENCENT_STORE_EXPIRATION_DATE  @"tencentExpirationDate"
 #define TENCENT_STORE_USER_ID          @"tencentUserID"
 #define TENCENT_STORE_USER_NAME        @"tencentUserName"
@@ -40,7 +41,7 @@ typedef enum {
     TencentGetOauthCode = 100,
     TencentGetOauthtoken,
     TencentGetRefreshToken,
-    TencentGetUserID,
+    TencentGetSelfInfo,
     TencentGetUserInfo,
 }TencentRequestType;
 
@@ -51,8 +52,8 @@ typedef enum {
 @protocol TencentHttpDelegate <NSObject>
 
 @optional
-//获取登陆用户的UID
--(void)didTencentGetUserID:(NSString*)userID;
+//获取登陆用户的info
+-(void)didTencentGetSelfInfo;
 
 //获取任意一个用户的信息
 -(void)didTencentGetUserInfo:(User*)user;
@@ -67,12 +68,14 @@ typedef enum {
     NSString *authCode;
     NSString *authToken;
     NSString *userId;
+    NSString *openID;
 }
 
 @property (nonatomic,retain) ASINetworkQueue *requestQueue;
 @property (nonatomic,assign) id<TencentHttpDelegate> delegate;
 @property (nonatomic,copy) NSString *authCode;
 @property (nonatomic,copy) NSString *authToken;
+@property (nonatomic,copy) NSString *openID;
 @property (nonatomic,copy) NSString *userId;
 
 - (id)initWithDelegate:(id)theDelegate;
@@ -85,5 +88,8 @@ typedef enum {
 
 //留给webview用
 -(NSURL*)getTencentOauthCodeUrl;
+
+//
+-(void)getTencentSelfInfo;
 
 @end

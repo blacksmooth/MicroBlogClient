@@ -73,6 +73,7 @@
     
     else if (_MBType == kTencentMicroBlog) {
         [[NSUserDefaults standardUserDefaults] setObject:token forKey:TENCENT_STORE_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] setObject:token forKey:TENCENT_SOTRE_OPEN_ID];
         [[NSUserDefaults standardUserDefaults] setObject:uid forKey:TENCENT_STORE_USER_ID];
         [[NSUserDefaults standardUserDefaults] setObject:expirationDate forKey:TENCENT_STORE_EXPIRATION_DATE];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -109,6 +110,7 @@
     else if(_MBType == kTencentMicroBlog)
     {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_STORE_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_SOTRE_OPEN_ID];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_STORE_USER_ID];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:TENCENT_STORE_EXPIRATION_DATE];
         [[NSUserDefaults standardUserDefaults] synchronize];
